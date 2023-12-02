@@ -73,6 +73,8 @@ pub enum Format {
         content: Box<Format>,
         size: usize,
     },
+
+    Any,
 }
 
 /// Serde-based serialization format for named "container" types.
@@ -522,7 +524,8 @@ impl FormatHolder for Format {
             | Self::F64
             | Self::Char
             | Self::Str
-            | Self::Bytes => (),
+            | Self::Bytes
+            | Self::Any => (),
 
             Self::Option(format)
             | Self::Seq(format)
@@ -573,7 +576,8 @@ impl FormatHolder for Format {
             | Self::F64
             | Self::Char
             | Self::Str
-            | Self::Bytes => (),
+            | Self::Bytes
+            | Self::Any => (),
 
             Self::Option(format)
             | Self::Seq(format)
@@ -643,7 +647,8 @@ impl FormatHolder for Format {
             | (Self::F64, Self::F64)
             | (Self::Char, Self::Char)
             | (Self::Str, Self::Str)
-            | (Self::Bytes, Self::Bytes) => (),
+            | (Self::Bytes, Self::Bytes)
+            | (Self::Any, Self::Any) => (),
 
             (Self::TypeName(name1), Self::TypeName(name2)) if *name1 == name2 => (),
 
